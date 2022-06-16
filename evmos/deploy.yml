@@ -1,0 +1,58 @@
+---
+version: "2.0"
+
+services:
+  app:
+    image: dimokus88/clan:0.1
+    env:
+     - "ROOT_PASS=" # Root password for SSH connection
+     - "MONIKER=CipherDogs" # Node name
+     - "MNEMONIC=" # Mnemonic phrase
+     - "WALLET_NAME=node" # Wallet name
+     - "WALLET_PASS=" # Wallet password
+
+     - "LINK_KEY=" # Link to the posted pirv-validator_key.json (direct download). It will also work from other Cosmos-based testnets
+     - "SNAPSHOT_LINK="
+     - "SNAP_RPC="
+     - "EVMOS_VER=v4.0.1"
+     - "GENESIS=https://github.com/tharsis/testnets/raw/main/evmos_9000-4/genesis.zip"
+     - "ADDRBOOK="
+     - "PEER=3a6b22e1569d9f85e9e97d1d204a1c457d860926@bd-evmos-testnet-seed-node-01.bdnodes.net:26656"
+    expose:
+      - port: 26657
+        as: 80
+        to:
+          - global: true
+      - port: 26656
+        to:
+          - global: true
+      - port: 22
+        as: 22
+        to:
+          - global: true
+profiles:
+  compute:
+    app:
+      resources:
+        cpu:
+          units: 4
+        memory:
+          size: 32Gi
+        storage:
+          size: 500Gi
+  placement:
+    akash: 
+      attributes:
+        host: akash
+      signedBy:
+        anyOf:
+          - akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63
+      pricing:
+        app:
+          denom: uakt
+          amount: 100
+deployment:
+  app:
+    akash:
+      profile: node
+      count: 1
