@@ -3,21 +3,21 @@ version: "2.0"
 
 services:
   app:
-    image: dimokus88/clan:0.1
+    image:
     env:
      - "ROOT_PASS=" # Root password for SSH connection
      - "MONIKER=CipherDogs" # Node name
      - "MNEMONIC=" # Mnemonic phrase
      - "WALLET_NAME=node" # Wallet name
      - "WALLET_PASS=" # Wallet password
-
-     - "LINK_KEY=" # Link to the posted pirv-validator_key.json (direct download). It will also work from other Cosmos-based testnets
-     - "SNAPSHOT_LINK="
-     - "SNAP_RPC="
      - "EVMOS_VER=v4.0.1"
      - "GENESIS=https://github.com/tharsis/testnets/raw/main/evmos_9000-4/genesis.zip"
      - "ADDRBOOK="
-     - "PEER=3a6b22e1569d9f85e9e97d1d204a1c457d860926@bd-evmos-testnet-seed-node-01.bdnodes.net:26656"
+     - "PEERS=3a6b22e1569d9f85e9e97d1d204a1c457d860926@bd-evmos-testnet-seed-node-01.bdnodes.net:26656"
+     - "SEEDS=3a6b22e1569d9f85e9e97d1d204a1c457d860926@bd-evmos-testnet-seed-node-01.bdnodes.net:26656"
+     - "LINK_KEY=" # Link to the posted pirv-validator_key.json (direct download). It will also work from other Cosmos-based testnets
+     - "SNAPSHOT_LINK="
+     - "SNAP_RPC="
     expose:
       - port: 26657
         as: 80
@@ -41,7 +41,7 @@ profiles:
         storage:
           size: 500Gi
   placement:
-    akash: 
+    akash:
       attributes:
         host: akash
       signedBy:
@@ -50,7 +50,7 @@ profiles:
       pricing:
         app:
           denom: uakt
-          amount: 100
+          amount: 1000
 deployment:
   app:
     akash:

@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  node_1:
+    build: .
+    ports:
+      - "26656:26656"
+      - "26657:26657"
+    environment:
+      ROOT_PASS: "" # Root password for SSH connection
+      MONIKER: "CipherDogs" # Node name
+      MNEMONIC: "" # Mnemonic phrase
+      WALLET_NAME: "node" # Wallet name
+      WALLET_PASS: "" # Wallet password
+
+      EVMOS_VER: "v5.0.0"
+      GENESIS: "https://github.com/evmos/testnets/raw/main/evmos_9000-4/genesis.zip"
+      ADDRBOOK: ""
+      PEERS: "3a6b22e1569d9f85e9e97d1d204a1c457d860926@bd-evmos-testnet-seed-node-01.bdnodes.net:26656"
+      SEEDS: "3a6b22e1569d9f85e9e97d1d204a1c457d860926@bd-evmos-testnet-seed-node-01.bdnodes.net:26656"
+
+      DENOM: "atevmos"
+      CHAIN_ID: "evmos_9000-4"
+
+      LINK_KEY: "" # Link to the posted pirv-validator_key.json (direct download). It will also work from other Cosmos-based testnets
+      SNAPSHOT_LINK: ""
+      SYNC_RPC: "https://evmos-testnet-rpc.polkachu.com:443"
+    volumes:
+      - ./node-data:/root/.evmosd
