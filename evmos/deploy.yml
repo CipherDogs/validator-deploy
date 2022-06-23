@@ -3,21 +3,26 @@ version: "2.0"
 
 services:
   app:
-    image:
+    image: deadblackclover/evmos:0.1.1
     env:
      - "ROOT_PASS=" # Root password for SSH connection
      - "MONIKER=CipherDogs" # Node name
      - "MNEMONIC=" # Mnemonic phrase
      - "WALLET_NAME=node" # Wallet name
      - "WALLET_PASS=" # Wallet password
-     - "EVMOS_VER=v4.0.1"
-     - "GENESIS=https://github.com/tharsis/testnets/raw/main/evmos_9000-4/genesis.zip"
+
+     - "EVMOS_VER=v5.0.0"
+     - "GENESIS=https://github.com/evmos/testnets/raw/main/evmos_9000-4/genesis.zip"
      - "ADDRBOOK="
      - "PEERS=3a6b22e1569d9f85e9e97d1d204a1c457d860926@bd-evmos-testnet-seed-node-01.bdnodes.net:26656"
      - "SEEDS=3a6b22e1569d9f85e9e97d1d204a1c457d860926@bd-evmos-testnet-seed-node-01.bdnodes.net:26656"
+
+     - "DENOM=atevmos"
+     - "CHAIN_ID=evmos_9000-4"
+
      - "LINK_KEY=" # Link to the posted pirv-validator_key.json (direct download). It will also work from other Cosmos-based testnets
      - "SNAPSHOT_LINK="
-     - "SNAP_RPC="
+     - "SYNC_RPC=https://evmos-testnet-rpc.polkachu.com:443"
     expose:
       - port: 26657
         as: 80
@@ -35,11 +40,11 @@ profiles:
     app:
       resources:
         cpu:
-          units: 4
+          units: 8
         memory:
           size: 32Gi
         storage:
-          size: 500Gi
+          size: 100Gi
   placement:
     akash:
       attributes:

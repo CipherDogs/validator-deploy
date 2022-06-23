@@ -317,7 +317,7 @@ while [[ $sync == false ]]; do
 
     if [[ -z "$val" ]]; then
         echo "*** Creating a validator... ***"
-        yes $WALLET_PASS | $binary tx staking create-validator --amount="1000000000000$DENOM" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER" --chain-id="$CHAIN_ID" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="1000000" --gas="auto" --gas-price="0.025$DENOM" --from="$address" -y
+        yes $WALLET_PASS | $binary tx staking create-validator --amount="1000000000000$DENOM" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER" --chain-id="$CHAIN_ID" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="1000000" --gas="auto" --gas-prices="0.025$DENOM" --from="$address" -y
         echo 'true' >> /var/validator
         val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
         echo $val
