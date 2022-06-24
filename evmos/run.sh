@@ -222,6 +222,11 @@ sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/$folder/config/config.
 
 snapshot_interval="0" && \
 sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" $HOME/$folder/config/app.toml
+
+if [ -n "$MINIMUM_GAS_PRICES" ]; then
+    minimum_gas_prices="$MINIMUM_GAS_PRICES$DENOM" && \
+    sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"$minimum_gas_prices\"/" $HOME/$folder/config/app.toml
+fi
 ######################################################################
 
 
@@ -317,7 +322,20 @@ while [[ $sync == false ]]; do
 
     if [[ -z "$val" ]]; then
         echo "*** Creating a validator... ***"
-        yes $WALLET_PASS | $binary tx staking create-validator --amount="1000000000000$DENOM" --pubkey=$($binary tendermint show-validator) --moniker="$MONIKER" --chain-id="$CHAIN_ID" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="1000000" --gas="auto" --gas-prices="0.025$DENOM" --from="$address" -y
+        yes $WALLET_PASS | $binary tx staking create-validator -y \
+            --amount="1000000000000$DENOM" \
+            --pubkey=$($binary tendermint show-validator) \
+            --moniker="$MONIKER" \
+            --website "https://validator.cipherdogs.net/" \
+            --details "Cyber-crypto team. Decentralization and Distribution." \
+            --chain-id="$CHAIN_ID" \
+            --commission-rate="0.10" \
+            --commission-max-rate="0.20" \
+            --commission-max-change-rate="0.01" \
+            --min-self-delegation="1000000" \
+            --gas="$CREATE_VALIDATOR_GAS" \
+            --fees="$CREATE_VALIDATOR_FEES$DENOM" \
+            --from="$WALLET_NAME"
         echo 'true' >> /var/validator
         val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
         echo $val

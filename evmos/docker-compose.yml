@@ -21,6 +21,10 @@ services:
 
       DENOM: "atevmos"
       CHAIN_ID: "evmos_9000-4"
+      MINIMUM_GAS_PRICES: "25000000000"
+
+      CREATE_VALIDATOR_GAS: "500000"
+      CREATE_VALIDATOR_FEES: "12500000000000000"
 
       LINK_KEY: "" # Link to the posted pirv-validator_key.json (direct download). It will also work from other Cosmos-based testnets
       SNAPSHOT_LINK: ""
