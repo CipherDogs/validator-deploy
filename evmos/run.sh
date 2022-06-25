@@ -70,15 +70,22 @@ while [[ $sync == false ]]; do
     echo "*** Your reward $reward $DENOM ***"
     echo "**********************************"
     sleep 5
-    if [[ `echo $reward` -gt 1000000 ]]; then
+    if [[ `echo $reward` -gt 1000000000000000000 ]]; then
         echo "*****************************************"
         echo "*** Rewards discovered, collecting... ***"
         echo "*****************************************"
-        # yes $WALLET_PASS | $binary tx distribution withdraw-rewards $valoper --from $address --fees 5555$DENOM --commission -y
-        # reward=0
+        yes $WALLET_PASS | $binary tx distribution withdraw-rewards $valoper --from $address --fees $CREATE_VALIDATOR_FEES$DENOM --commission -y
+        reward=0
         sleep 5
     fi
     #######################################################################
+
+
+    ############################### Self Bonded ###############################
+    if [[ $SELF_BONDED == true ]]; then
+        yes $WALLET_PASS | $binary tx staking delegate $valoper 7000000000000000000atevmos --from $address --chain-id $CHAIN_ID --fees $CREATE_VALIDATOR_FEES$DENOM -y
+    fi
+    ###########################################################################
 
 
     ############################### Getting out of jail ###############################
@@ -335,7 +342,7 @@ while [[ $sync == false ]]; do
             --min-self-delegation="1000000" \
             --gas="$CREATE_VALIDATOR_GAS" \
             --fees="$CREATE_VALIDATOR_FEES$DENOM" \
-            --from="$WALLET_NAME"
+            --from="$address"
         echo 'true' >> /var/validator
         val=`$binary query staking validator $valoper -o json | jq -r .description.moniker`
         echo $val

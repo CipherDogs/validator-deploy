@@ -3,7 +3,7 @@ version: "2.0"
 
 services:
   app:
-    image: deadblackclover/evmos:0.2.0
+    image: deadblackclover/evmos:0.2.1
     env:
      - "ROOT_PASS=" # Root password for SSH connection
      - "MONIKER=CipherDogs" # Node name
@@ -20,6 +20,8 @@ services:
      - "DENOM=atevmos"
      - "CHAIN_ID=evmos_9000-4"
      - "MINIMUM_GAS_PRICES=25000000000"
+
+     - "SELF_BONDED=true"
 
      - "CREATE_VALIDATOR_GAS=500000"
      - "CREATE_VALIDATOR_FEES=12500000000000000"
