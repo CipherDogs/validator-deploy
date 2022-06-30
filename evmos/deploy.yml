@@ -3,7 +3,7 @@ version: "2.0"
 
 services:
   app:
-    image: deadblackclover/evmos:0.2.1
+    image: deadblackclover/evmos:0.2.2
     env:
      - "ROOT_PASS=" # Root password for SSH connection
      - "MONIKER=CipherDogs" # Node name
@@ -11,7 +11,7 @@ services:
      - "WALLET_NAME=node" # Wallet name
      - "WALLET_PASS=" # Wallet password
 
-     - "EVMOS_VER=v5.0.0"
+     - "EVMOS_VER=v6.0.1"
      - "GENESIS=https://github.com/evmos/testnets/raw/main/evmos_9000-4/genesis.zip"
      - "ADDRBOOK="
      - "PEERS=3a6b22e1569d9f85e9e97d1d204a1c457d860926@bd-evmos-testnet-seed-node-01.bdnodes.net:26656"
