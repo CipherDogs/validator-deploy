@@ -3,7 +3,7 @@ version: "2.0"
 
 services:
   app:
-    image: deadblackclover/evmos:0.2.2
+    image: deadblackclover/evmos:0.2.1
     env:
      - "ROOT_PASS=" # Root password for SSH connection
      - "MONIKER=CipherDogs" # Node name
